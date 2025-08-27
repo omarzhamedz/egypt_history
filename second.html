@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Traveler AR ⏳</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #0f0f1a;
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .nav{
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(7,10,19,.85), rgba(7,10,19,.55)); border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-inner{ display: flex; align-items: center; justify-content: space-between; padding: .9rem 0; }
+    .brand{ display: flex; align-items: center; gap: .6rem; font-weight: 800; letter-spacing: .2px; }
+    .brand svg{ width: 28px; height: 28px; }
+    .nav-links{ display: flex; gap: 1rem; align-items: center; }
+    .nav-links a{ padding: .5rem .8rem; border-radius: .8rem; color: var(--muted); font-weight: 600; }
+    .nav-links a:hover{ color: white; background: rgba(255,255,255,.06); }
+    .menu-btn{ display: none; background: none; border: none; color: var(--text); }
+
+    header {
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+
+    header p {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1533450718592-29d45635f0a9?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      animation: fadeInDown 1s ease;
+    }
+
+    .hero button {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      background: #00f2fe;
+      color: #000;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .hero button:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    section {
+      padding: 4rem 10%;
+    }
+    /* Add this inside your <style> or css file */
+.timeline {
+  max-width: 100%;    /* never overflow parent */
+  max-height: 400px;  /* cap vertical size */
+  object-fit: contain; /* keep aspect ratio */
+  border-radius: 12px; /* rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* subtle shadow */
+  margin: 15px auto;
+  display: block;
+}
+
+
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #00f2fe;
+      text-align: center;
+    }
+
+    section p {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      color: #ddd;
+    }
+
+    .features, .tech, .demo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: #1c1c2b;
+      padding: 2rem;
+      border-radius: 15px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card h3 {
+      margin-bottom: 1rem;
+      color: #4facfe;
+    }
+
+    .demo img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 1rem;
+    }
+
+    .time-slider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 2rem;
+    }
+
+    .time-slider input[type="range"] {
+      width: 80%;
+      margin-top: 1rem;
+    }
+
+    footer {
+      background: #1c1c2b;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+     <nav class="nav">
+        <div class="container nav-inner">
+          
+            <div class="nav-links" role="navigation" aria-label="Primary">
+                <a href="./first.html">First project</a>
+                <a href="./second.html">Second project</a>
+
+            </div>
+        </div>
+    </nav>
+
+  <header>
+    <h1>Time Traveler AR ⏳</h1>
+    <p>Past & Future Explorer – Discover history, imagine the future</p>
+  </header>
+
+  <div class="hero">
+    <div class="hero-content">
+      <h2>Travel through time with AR & AI</h2>
+      <button>Join the Adventure</button>
+    </div>
+  </div>
+
+  <section>
+    <h2>🌟 Key Features</h2>
+    <p>Explore places like never before by blending history, AI, and AR technology.</p>
+    <div class="features">
+      <div class="card">
+        <h3>🔍 See the Past</h3>
+        <p>Point your phone at a location to reveal how it looked 50, 100, or even 500 years ago with historical datasets and photos.</p>
+      </div>
+      <div class="card">
+        <h3>🚀 Imagine the Future</h3>
+        <p>Use AI-generated predictions to visualize how cities, streets, and landmarks may look in 2050 and beyond.</p>
+      </div>
+      <div class="card">
+        <h3>🎓 Learn & Explore</h3>
+        <p>Perfect for education, tourism, and cultural preservation. Turn any street into an interactive history book.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>📸 Demo Preview</h2>
+    <p>Slide through time – Past → Present → Future</p>
+    <div class="time-slider">
+    <img id="timeImage" class="timeline" src="./1900.jpg" alt="Past Cairo">
+
+      <input type="range" id="timeRange" min="0" max="2" step="1" value="0">
+    </div>
+  </section>
+
+  <section>
+    <h2>⚙️ Technology</h2>
+    <p>Powered by cutting-edge tools that merge the digital and physical worlds.</p>
+    <div class="tech">
+      <div class="card">
+        <h3>AR (Augmented Reality)</h3>
+        <p>Overlay historical and predictive visuals on live camera views.</p>
+      </div>
+      <div class="card">
+        <h3>AI Image Generation</h3>
+        <p>Neural networks reconstruct past photos and simulate future changes.</p>
+      </div>
+      <div class="card">
+        <h3>GIS & Historical Data</h3>
+        <p>Geographic information systems and curated datasets ensure accurate reconstructions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>❓ FAQ</h2>
+    <p>Answers to common questions.</p>
+    <div class="features">
+      <div class="card">
+        <h3>Is this real-time AR?</h3>
+        <p>Yes! You can scan streets, landmarks, and instantly see past & future projections.</p>
+      </div>
+      <div class="card">
+        <h3>Where do you get the data?</h3>
+        <p>We use open-source historical archives, local museums, and satellite predictions.</p>
+      </div>
+      <div class="card">
+        <h3>How accurate are the future models?</h3>
+        <p>They are predictions powered by AI and urban growth datasets, offering possible scenarios.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Time Traveler AR. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const timeRange = document.getElementById('timeRange');
+    const timeImage = document.getElementById('timeImage');
+
+    const images = [
+      "./1900.jpg", // Past
+      "./cairo_now.jpg", // Present
+      "./cairo2050.jpg" // Future concept
+    ];
+
+    const alts = ["Past Cairo (1900)", "Present Cairo", "Future Cairo (AI Concept)"];
+
+    timeRange.addEventListener('input', () => {
+      timeImage.src = images[timeRange.value];
+      timeImage.alt = alts[timeRange.value];
+    });
+  </script>
+
+</body>
+</html>

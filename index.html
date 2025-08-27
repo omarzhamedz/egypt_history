@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Always Together – Stay Connected Beyond Time</title>
+  <meta name="description" content="Always Together is an app that reminds you to care for loved ones, share locations, record memories & life lessons, write your will, and deliver your legacy beyond life." />
+  <meta name="theme-color" content="#0ea5e9" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Always Together – Stay Connected Beyond Time" />
+  <meta property="og:description" content="Care reminders, location awareness, memories & life lessons, after‑life messages, and secure digital will." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='100%25' height='100%25' fill='%230ea5e9'/%3E%3Ctext x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-family='Verdana' font-size='64' fill='white'%3EAlways Together%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs/%3E%3Ccircle cx='32' cy='32' r='30' fill='%230ea5e9'/%3E%3Cpath d='M32 17c4 0 7 3 7 7s-3 7-7 7-7-3-7-7 3-7 7-7zm0 18c7.2 0 13 5.8 13 13H19c0-7.2 5.8-13 13-13z' fill='%23fff'/%3E%3C/svg%3E" />
+  <style>
+    :root{
+      --bg: #070a13;
+      --card: #0c1222;
+      --muted: #9fb3c8;
+      --text: #e8f1fb;
+      --brand: #0ea5e9; /* sky-500 */
+      --brand-2: #22d3ee; /* cyan-400 */
+      --accent: #a78bfa; /* violet-400 */
+      --success: #22c55e; /* green-500 */
+      --warning: #f59e0b; /* amber-500 */
+      --danger: #ef4444; /* red-500 */
+      --radius-xl: 1.25rem;
+      --radius-2xl: 1.75rem;
+      --shadow-soft: 0 10px 30px rgba(14,165,233,.25);
+      --shadow-card: 0 12px 40px rgba(2,6,23,.65);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; scroll-behavior: smooth; }
+    body{
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text); background: radial-gradient(1200px 600px at 20% -10%, rgba(56,189,248,.25), transparent 60%),
+                               radial-gradient(900px 600px at 120% 10%, rgba(167,139,250,.18), transparent 60%),
+                               radial-gradient(600px 600px at 60% 120%, rgba(34,211,238,.15), transparent 60%),
+                               var(--bg);
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* Layout */
+    .container{ width: min(1200px, 92%); margin: 0 auto; }
+
+    /* Navbar */
+    .nav{
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(7,10,19,.85), rgba(7,10,19,.55)); border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-inner{ display: flex; align-items: center; justify-content: space-between; padding: .9rem 0; }
+    .brand{ display: flex; align-items: center; gap: .6rem; font-weight: 800; letter-spacing: .2px; }
+    .brand svg{ width: 28px; height: 28px; }
+    .nav-links{ display: flex; gap: 1rem; align-items: center; }
+    .nav-links a{ padding: .5rem .8rem; border-radius: .8rem; color: var(--muted); font-weight: 600; }
+    .nav-links a:hover{ color: white; background: rgba(255,255,255,.06); }
+    .menu-btn{ display: none; background: none; border: none; color: var(--text); }
+
+    /* Hero */
+    .hero{ padding: 5rem 0 3rem; text-align: center; position: relative; overflow: hidden; }
+    .badge{ display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .7rem; border-radius: 999px; color: #06223a; font-weight: 700; background: linear-gradient(90deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow-soft); }
+    .hero h1{ font-size: clamp(2rem, 4vw + .8rem, 3.6rem); margin: 1rem auto .5rem; letter-spacing: .2px; line-height: 1.12; }
+    .hero p{ color: var(--muted); font-size: clamp(1rem, 1.2vw + .6rem, 1.3rem); max-width: 800px; margin: 0.5rem auto 1.5rem; }
+    .hero-cta{ display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
+    .btn{ border: 0; cursor: pointer; border-radius: 1rem; padding: .9rem 1.1rem; font-weight: 800; letter-spacing: .2px; }
+    .btn-primary{ background: linear-gradient(90deg, var(--brand), var(--brand-2)); color: #06223a; box-shadow: var(--shadow-soft); }
+    .btn-outline{ background: rgba(255,255,255,.06); color: white; border: 1px solid rgba(255,255,255,.12); }
+
+    /* Showcase (phone mock) */
+    .mock{ width: min(900px, 92%); margin: 2rem auto 0; background: linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-2xl); box-shadow: var(--shadow-card); padding: 1.2rem; position: relative; }
+    .mock-screen{ border-radius: calc(var(--radius-2xl) - .6rem); aspect-ratio: 16/9; background:
+      radial-gradient(600px 300px at 10% 0%, rgba(14,165,233,.25), transparent 50%),
+      radial-gradient(500px 260px at 100% 0%, rgba(167,139,250,.22), transparent 50%),
+      linear-gradient(135deg, #0b1220 0%, #0f172a 100%);
+      display: grid; place-items: center; padding: 2rem; overflow: hidden;
+    }
+    .chip{ display: inline-flex; align-items: center; gap: .6rem; padding: .7rem 1rem; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 999px; color: var(--text); font-weight: 700; }
+
+    /* Sections */
+    section{ padding: 4.5rem 0; }
+    .section-title{ text-align: center; font-size: clamp(1.4rem, 1.6vw + .8rem, 2rem); margin: 0; }
+    .section-sub{ text-align: center; color: var(--muted); max-width: 750px; margin: .6rem auto 2rem; }
+
+    /* Features grid */
+    .grid{ display: grid; gap: 1rem; }
+    .features{ grid-template-columns: repeat(12, 1fr); }
+    .feature-card{
+      grid-column: span 6;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius-xl);
+      padding: 1.2rem; box-shadow: var(--shadow-card);
+      display: grid; grid-template-columns: auto 1fr; gap: .9rem; align-items: flex-start;
+      opacity: 0; transform: translateY(12px); transition: .6s ease;
+    }
+    .feature-card.show{ opacity: 1; transform: translateY(0); }
+    .feature-icon{ width: 44px; height: 44px; display: grid; place-items: center; border-radius: .9rem; background: rgba(14,165,233,.14); border: 1px solid rgba(14,165,233,.25); }
+    .feature-card h3{ margin: .1rem 0 .35rem; font-size: 1.12rem; }
+    .feature-card p{ margin: 0; color: var(--muted); }
+
+    /* How it works */
+    .steps{ grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .step{ background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-xl); padding: 1.2rem; box-shadow: var(--shadow-card); }
+    .step h4{ margin: .2rem 0 .4rem; }
+    .step p{ margin: 0; color: var(--muted); }
+
+    /* Security */
+    .security{ display: grid; grid-template-columns: 1.3fr 1fr; gap: 1rem; align-items: center; }
+    .security-card{ background: rgba(34,211,238,.08); border: 1px solid rgba(34,211,238,.25); border-radius: var(--radius-xl); padding: 1.2rem; box-shadow: var(--shadow-card); }
+    .list{ list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
+    .list li{ display: grid; grid-template-columns: 22px 1fr; gap: .5rem; align-items: flex-start; color: var(--muted); }
+
+    /* FAQ */
+    .faq{ max-width: 900px; margin: 0 auto; }
+    .accordion{ background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-xl); overflow: hidden; }
+    .accordion-item + .accordion-item{ border-top: 1px solid rgba(255,255,255,.08); }
+    .accordion-btn{ width: 100%; text-align: left; background: none; border: 0; color: var(--text); font-weight: 700; padding: 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .accordion-content{ max-height: 0; overflow: hidden; transition: max-height .35s ease; padding: 0 1rem; }
+    .accordion-content p{ color: var(--muted); }
+    .accordion-item.open .accordion-content{ max-height: 300px; padding: 0 1rem 1rem; }
+
+    /* CTA */
+    .cta{ text-align: center; background: linear-gradient(135deg, rgba(14,165,233,.15), rgba(167,139,250,.18)); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-2xl); padding: 2rem; box-shadow: var(--shadow-card); }
+
+    /* Footer */
+    footer{ padding: 2rem 0 3rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,.06); }
+    .footer-grid{ display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 1rem; }
+    .socials{ display: flex; gap: .6rem; }
+    .socials a{ background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); padding: .5rem; border-radius: .8rem; }
+
+    /* Back to top */
+    .to-top{ position: fixed; right: 1rem; bottom: 1rem; opacity: 0; transform: translateY(12px); transition: .3s; }
+    .to-top.show{ opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .features .feature-card{ grid-column: span 12; }
+      .steps{ grid-template-columns: 1fr; }
+      .security{ grid-template-columns: 1fr; }
+      .footer-grid{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px){
+      .nav-links{ display: none; }
+      .menu-btn{ display: block; }
+      .mobile-menu{ display: none; position: absolute; left: 0; right: 0; top: 60px; background: rgba(7,10,19,.92); border-bottom: 1px solid rgba(255,255,255,.06); padding: .6rem 0; }
+      .mobile-menu a{ display: block; padding: .8rem 1rem; color: var(--muted); }
+      .mobile-menu a:hover{ background: rgba(255,255,255,.06); color: white; }
+    }
+    .videos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-rows: repeat(3, 1fr);   /* 3 rows */
+  gap: 5px;
+  width: 100%;
+  height: 100%;
+}
+
+.videos-grid video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px; /* optional */
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between logo and text */
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.brand-logo {
+  width: 40px;  /* adjust size */
+  height: 40px;
+  object-fit: contain;
+}
+
+
+  </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container nav-inner">
+          
+            <div class="nav-links" role="navigation" aria-label="Primary">
+                <a href="./first.html">First project</a>
+                <a href="./second.html">Second project</a>
+
+            </div>
+        </div>
+    </nav>
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="container nav-inner">
+     <a href="#" class="brand" aria-label="Always Together Home">
+  <img src="./fifth.png" alt="Always Together Logo" class="brand-logo" />
+  <span>Always Together</span>
+</a>
+
+      <div class="nav-links" role="navigation" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#how">How it Works</a>
+        <a href="#security">Security</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://play.google.com/store/games?hl=en" class="btn btn-primary">Download</a>
+      </div>
+      <button class="menu-btn" aria-label="Open menu" id="menuBtn">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+   
+  </nav>
+
+  <!-- HERO -->
+<div class="mock" aria-hidden="true">
+  <div class="mock-screen videos-grid">
+    <video autoplay loop muted playsinline>
+      <source src="./first.mp4" type="video/mp4">
+    </video>
+  
+    <video autoplay loop muted playsinline>
+      <source src="./third.mp4" type="video/mp4">
+    </video>
+      <video autoplay loop muted playsinline>
+      <source src="./second.mp4" type="video/mp4">
+    </video>
+    <video autoplay loop muted playsinline>
+      <source src="./forth.mp4" type="video/mp4">
+    </video>
+   
+  </div>
+</div>
+
+
+  <!-- FEATURES -->
+  <section class="container" id="features">
+    <h2 class="section-title">Everything you need to care, connect & leave a legacy</h2>
+    <p class="section-sub">Thoughtfully designed features to keep your loved ones close — today, tomorrow, and beyond.</p>
+
+    <div class="grid features">
+      <!-- Feature cards -->
+      <article class="feature-card">
+        <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg></div>
+        <div>
+          <h3>Health & Care Reminders</h3>
+          <p>Smart nudges to check in on your beloved ones — with special care plans for those who are ill.</p>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2v2M12 16v6M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></div>
+        <div>
+          <h3>Location Awareness</h3>
+          <p>Get notified when you’re near someone you love and be reminded to make a memory together.</p>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 10h8M8 14h6"/></svg></div>
+        <div>
+          <h3>Write Your Will</h3>
+          <p>Compose a secure, legally‑aware will draft inside the app and have it delivered to your chosen contacts after your death.</p>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V6a2 2 0 012-2h8l6 6v9.5a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 014 19.5z"/><path d="M14 4v4h4"/></svg></div>
+        <div>
+          <h3>Memories & Life Lessons</h3>
+          <p>Record stories, photos, and lessons. Schedule them to be shared with your loved ones when the time is right.</p>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 11-3.8-11.3"/><path d="M22 2l-6 6"/></svg></div>
+        <div>
+          <h3>After‑Life Messages</h3>
+          <p>Your words and guidance are delivered privately to the people you select after your passing.</p>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <div>
+          <h3>Proximity Detection</h3>
+          <p>We detect when you’re near a loved one and remind you to capture a new memory together.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="container" id="how">
+    <h2 class="section-title">How it works</h2>
+    <p class="section-sub">Three simple steps to stay present today and prepare your legacy for tomorrow.</p>
+    <div class="grid steps">
+      <div class="step">
+        <h4>1. Add your beloved ones</h4>
+        <p>Invite family & friends. Set care preferences and contact frequency that fit each relationship.</p>
+      </div>
+      <div class="step">
+        <h4>2. Enable smart reminders</h4>
+        <p>Turn on health check‑ins, location awareness, proximity prompts, and memory reminders.</p>
+      </div>
+      <div class="step">
+        <h4>3. Record your legacy</h4>
+        <p>Write a will, store memories & lessons, and choose trusted recipients and delivery conditions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY -->
+  <section class="container" id="security">
+    <div class="security">
+      <div>
+        <h2 class="section-title">Privacy & Security by Design</h2>
+        <p class="section-sub">Your care, locations, memories, and will are encrypted and protected. You stay in control of what’s shared and when.</p>
+        <ul class="list">
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>End‑to‑end encryption for sensitive content (will, messages, lessons).</span>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            <span>Granular consent: you choose who sees what and under which conditions.</span>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M7 7h10v10H7z"/></svg>
+            <span>Zero‑knowledge vault for will & legacy content—only you hold the keys.</span>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h10a2 2 0 012 2v5"/></svg>
+            <span>Emergency contact & executor mechanisms for verified after‑life delivery.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="security-card">
+        <h3>Legal note</h3>
+        <p>Always Together can help you draft and store your will. Local laws may require witnessing, notarization, or registration for your will to be legally binding. We’ll guide you to comply in your country.</p>
+        <div style="display:grid; gap:.6rem; margin-top:.8rem">
+          <div><strong>Data control:</strong> export or delete your data anytime.</div>
+          <div><strong>Transparency:</strong> clear logs of when and how messages are delivered.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="container faq" id="faq">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-sub">Quick answers about care reminders, will delivery, security, and more.</p>
+
+    <div class="accordion" id="accordion">
+        <div class="accordion-item">
+            <button class="accordion-btn" type="button">How the people well find out that i passed? <span>+</span></button>
+<div class="accordion-content"><p>the consent send a messages to your phone if certian amount of massages was not answered the app starts to ask your beloved about you to confirm if you passed or not .</p></div>
+      
+        </div>
+      <div class="accordion-item">
+        <button class="accordion-btn" type="button">Is my data private? <span>+</span></button>
+        <div class="accordion-content"><p>Yes. Sensitive content is encrypted end‑to‑end. You control recipients and delivery conditions, and you can revoke access at any time.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn" type="button">Can I write a legally valid will? <span>+</span></button>
+        <div class="accordion-content"><p>We help you draft and store your will securely. To make it legally binding, you may need witnesses, notarization, or local filings depending on your jurisdiction.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn" type="button">How does proximity detection work? <span>+</span></button>
+        <div class="accordion-content"><p>With your permission, the app uses device location to detect nearby loved ones and sends a gentle prompt to create a new memory.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn" type="button">What platforms are supported? <span>+</span></button>
+        <div class="accordion-content"><p>iOS and Android at launch, with a web dashboard for account management and legacy configuration.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / DOWNLOAD -->
+  <section class="container" id="download">
+    <div class="cta">
+      <h2 class="section-title">Start building your eternal connection</h2>
+      <p class="section-sub">Download Always Together and keep your care, memories, and wisdom alive—forever.</p>
+      <div class="hero-cta" style="margin-top: .6rem">
+        <a class="btn btn-primary" href="https://www.apple.com/eg/app-store/" aria-label="Download on App Store">App Store</a>
+        <a class="btn btn-outline" href="https://play.google.com/store" aria-label="Get it on Google Play">Google Play</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:.6rem">
+          <svg viewBox="0 0 64 64" aria-hidden="true" width="24" height="24"><circle cx="32" cy="32" r="24" fill="url(#g2)"/><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0ea5e9"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient></defs><path d="M32 20c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8Zm0 18c7.7 0 14 6.3 14 14H18c0-7.7 6.3-14 14-14Z" fill="#fff"/></svg>
+          <strong>Always Together</strong>
+        </div>
+        <p>Because life is short, but love is eternal.</p>
+      </div>
+      <div>
+        <strong>Company</strong>
+        <div><a href="#features">Features</a></div>
+        <div><a href="#how">How it works</a></div>
+        <div><a href="#security">Security</a></div>
+        <div><a href="#faq">FAQ</a></div>
+      </div>
+      <div>
+        <strong>Follow</strong>
+        <div class="socials" aria-label="Social links">
+          <a href="#" aria-label="Twitter">T</a>
+          <a href="#" aria-label="Instagram">I</a>
+          <a href="#" aria-label="YouTube">Y</a>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:1rem">© <span id="year"></span> Always Together. All rights reserved.</p>
+  </footer>
+
+  <a href="#" class="btn btn-primary to-top" id="toTop" aria-label="Back to top">↑</a>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.style.display === 'block';
+      mobileMenu.style.display = open ? 'none' : 'block';
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.style.display = 'none'));
+
+    // Intersection Observer for feature reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.feature-card').forEach(card => io.observe(card));
+
+    // Accordion
+    const acc = document.getElementById('accordion');
+    acc.querySelectorAll('.accordion-item').forEach(item => {
+      const btn = item.querySelector('.accordion-btn');
+      btn.addEventListener('click', () => {
+        const open = item.classList.contains('open');
+        acc.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+        if (!open) item.classList.add('open');
+      });
+    });
+
+    // Back to top visibility
+    const toTop = document.getElementById('toTop');
+    const showOn = 400;
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > showOn) toTop.classList.add('show');
+      else toTop.classList.remove('show');
+    });
+
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll for in-page links (fallback for older browsers)
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e){
+        const id = this.getAttribute('href');
+        if (id.length > 1){
+          e.preventDefault();
+          document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
